@@ -33,5 +33,11 @@ func CalcFuel(masses []string) float64 {
 
 func doMassToFuelConversion(mass float64) float64 {
 	fuel := math.Floor(mass/3) - 2
-	return fuel
+	fmt.Println("How much fuel: ", fuel)
+	if fuel >= 0 {
+		extraFuelMass := doMassToFuelConversion(fuel)
+		fuel += extraFuelMass
+		return fuel
+	}
+	return 0
 }
