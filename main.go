@@ -9,5 +9,5 @@ import (
 func main() {
 	inputs := problem1.LoadInput()
 	mass := problem1.CalcFuel(inputs)
-	fmt.Println(mass)
+	fmt.Printf("%f", mass)
 }

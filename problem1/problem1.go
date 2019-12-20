@@ -11,7 +11,7 @@ import (
 func LoadInput() []string {
 	dat, _ := ioutil.ReadFile("./problem1/input")
 	sdata := string(dat)
-	inputs := strings.SplitN(sdata, "\n", -1)
+	inputs := strings.Split(sdata, "\n")
 	return inputs
 }
 
@@ -19,9 +19,19 @@ func CalcFuel(masses []string) float64 {
 	sum := float64(0)
 	for _, x := range masses {
 		num, _ := strconv.ParseFloat(x, 32)
-		fmt.Println(num)
-		valu := math.Floor(num/3) - 2
+		if num <= 0 {
+			continue
+		}
+		fmt.Println("Mass: ", num)
+		valu := doMassToFuelConversion(num)
+		fmt.Println("Fuel: ", valu)
 		sum += valu
 	}
+	fmt.Println("====================")
 	return sum
+}
+
+func doMassToFuelConversion(mass float64) float64 {
+	fuel := math.Floor(mass/3) - 2
+	return fuel
 }
