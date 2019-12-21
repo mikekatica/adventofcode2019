@@ -9,9 +9,24 @@ import (
 
 func DoProblem2() {
 	intcomp := parseArrayFromProblemInput("./problem2/input")
-	fmt.Println(intcomp)
-	processSlice(intcomp)
-	fmt.Println(intcomp)
+	res := processSlice(intcomp)
+	fmt.Println(intcomp[0])
+	fmt.Println(res[0])
+}
+
+func DoProblem2Part2() {
+	baseMemory := parseArrayFromProblemInput("./problem2/input")
+	result := processSlice(baseMemory)
+	var o1 int
+	var o2 int
+	for i := 0; i < len(baseMemory) && result[0] != int64(19690720); i++ {
+		for j := 0; j < i && j < len(baseMemory) && result[0] != int64(19690720); j++ {
+			result = processSliceRepl(baseMemory, i, j)
+			o2 = j
+		}
+		o1 = i
+	}
+	fmt.Printf("Op: %v%v", o1, o2)
 }
 
 func parseArrayFromProblemInput(path string) []int64 {
@@ -23,16 +38,30 @@ func parseArrayFromProblemInput(path string) []int64 {
 	for _, x := range splitTrimData {
 		inputInt, _ := strconv.ParseInt(x, 10, 32)
 		inputs = append(inputs, inputInt)
-		fmt.Printf("String: %v, Int: %v\n", x, inputInt)
 	}
 	return inputs
 }
 
-func processSlice(r []int64) {
+func processSlice(r []int64) []int64 {
 	exit := false
+	copyOfr := make([]int64, len(r))
+	copy(copyOfr, r)
 	for i := 0; i < len(r) && !exit; i += 4 {
-		exit = evaluateSlice(i, r)
+		exit = evaluateSlice(i, copyOfr)
 	}
+	return copyOfr
+}
+
+func processSliceRepl(r []int64, spot1 int, spot2 int) []int64 {
+	exit := false
+	copyOfr := make([]int64, len(r))
+	copy(copyOfr, r)
+	copyOfr[1] = int64(spot1)
+	copyOfr[2] = int64(spot2)
+	for i := 0; i < len(r) && !exit; i += 4 {
+		exit = evaluateSlice(i, copyOfr)
+	}
+	return copyOfr
 }
 
 func evaluateSlice(startingIndex int, slice []int64) bool {

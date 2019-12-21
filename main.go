@@ -16,4 +16,5 @@ func main() {
 	fmt.Println("\n===================")
 	fmt.Println("Day 2:")
 	problem2.DoProblem2()
+	problem2.DoProblem2Part2()
 }

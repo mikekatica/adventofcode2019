@@ -31,12 +31,12 @@ func TestParse(t *testing.T) {
 }
 
 func OpAndDesiredResult(op []int64, des []int64, t *testing.T) {
-	processSlice(op)
-	if len(op) != len(des) {
+	postOp := processSlice(op)
+	if len(postOp) != len(des) {
 		t.Error("Lengths of the two did not match")
 	} else {
 		for i := range des {
-			if op[i] != des[i] {
+			if postOp[i] != des[i] {
 				var b strings.Builder
 				b.WriteString("Wanted ")
 				b.WriteString(fmt.Sprintf("%v", des))
