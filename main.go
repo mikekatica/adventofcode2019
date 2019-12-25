@@ -5,6 +5,7 @@ import (
 
 	problem1 "./problem1"
 	problem2 "./problem2"
+	problem3 "./problem3"
 )
 
 func main() {
@@ -17,4 +18,8 @@ func main() {
 	fmt.Println("Day 2:")
 	problem2.DoProblem2()
 	problem2.DoProblem2Part2()
+	fmt.Println("\n===================")
+	fmt.Println("Day 3:")
+	dist := problem3.DoProblem3()
+	fmt.Println(dist)
 }
